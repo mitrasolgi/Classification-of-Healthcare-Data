@@ -1,0 +1,41 @@
+When for the same instance, we have two class labels, we do the following:
+
+Cleaning policy 1:
+
+If #Yes==#No (INCONSISTENCY, TIE) then remove all the instances that have this criteria.
+
+If #Yes > #No (INCONSISTENCY, has MAJORITy), then remove all the inctances that have this criteria but keep ONE "Yes" instance.
+
+If #No > #Yes (INCONSISTENCY, has MAJORITy), then remove all the inctances that have this criteria but keep one "No" instance.
+
+
+Cleaning policy 2 (cleaner way)
+
+If #Yes==#No (INCONSISTENCY, TIE) then remove ALL the instances that have this criteria.
+
+If #Yes > #No (INCONSISTENCY), then remove ALL the inctances that have this criteria.
+
+If #No > #Yes (INCONSISTENCY), then remove ALL the inctances that have this criteria.
+
+
+Cleaning policy 3:
+
+1) Merge training + testing: 
+2) Apply policy 2
+
+Training_testing_merged.txt
+Training_testing_merged_cleaned_policy2.txt
+Training_testing_merged_cleaned_policy2_fold1.txt
+…
+Training_testing_merged_cleaned_policy2_fold10.txt
+Put this in cleaned_data folder
+
+~~~~~~~
+Training_testing_merged.txt
+Training_testing_merged_fold1.txt
+Training_testing_merged_fold2.txt
+…
+Training_testing_merged_fold10.txt
+~~~~~~~
+
+[[Delete all duplicates(using cleaning policy 2 + remove duplicates when they are all Yes or they are all No)]]

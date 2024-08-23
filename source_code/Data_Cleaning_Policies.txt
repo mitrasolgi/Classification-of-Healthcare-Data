@@ -1,0 +1,62 @@
+When for the same instance, we have two class labels, we do the following:
+
+Cleaning policy 1:
+
+If #Yes==#No (INCONSISTENCY, TIE) then remove all the instances that have this criteria.
+
+If #Yes > #No (INCONSISTENCY, has MAJORITy), then remove all the inctances that have this criteria but keep ONE "Yes" instance.
+
+If #No > #Yes (INCONSISTENCY, has MAJORITy), then remove all the inctances that have this criteria but keep one "No" instance.
+
+
+Cleaning policy 2 (cleaner way)
+
+If #Yes==#No (INCONSISTENCY, TIE) then remove ALL the instances that have this criteria.
+
+If #Yes > #No (INCONSISTENCY), then remove ALL the inctances that have this criteria.
+
+If #No > #Yes (INCONSISTENCY), then remove ALL the inctances that have this criteria.
+
+
+Cleaning policy 3:
+
+1) Merge training + testing: 
+2) Apply policy 2
+
+Training_testing_merged.txt
+Training_testing_merged_cleaned_policy2.txt
+Training_testing_merged_cleaned_policy2_fold1.txt
+…
+Training_testing_merged_cleaned_policy2_fold10.txt
+Put this in cleaned_data folder
+
+~~~~~~~
+Training_testing_merged.txt
+Training_testing_merged_fold1.txt
+Training_testing_merged_fold2.txt
+…
+Training_testing_merged_fold10.txt
+~~~~~~~
+
+[[Delete all duplicates(using cleaning policy 2 + remove duplicates when they are all Yes or they are all No)]]
+
+----------------------------------------
+
+ 1) Merge Training_ML + Validation_ML datasets.
+
+ 2) Apply policy 2.
+ 
+3) I used the Resample filter which exists in preprocess tab of Weka. The resampling produces a random subsample of a dataset using either sampling with replacement or without replacement. I used sampling without replacement. The filter can be made to maintain the class distribution in the subsample, or to bias the class distribution toward a uniform distribution. I used uniform distribution.
+
+Before using resampling, the number of noshow is:9784, show:93014, total:102798
+
+After resmpling, the number of noshow is:51380, show:51418, total:102798
+
+Which means that resampling does not reduce the number instances but it provides a balance between two classes.
+
+Our merged data without using cleaning and resampling, does not produce a good result since the dataset is imbalanced.
+
+I used bagging with different classifiers like RandomTree, REPTree, DecisionTree and etc and the  results seems good. Moreover, I used Adaboost with different classifiers.
+
+The error rate for type1 and type2 is reduced since the number of true positive and true negatives is increased.
+
